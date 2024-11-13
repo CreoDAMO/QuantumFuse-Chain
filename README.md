@@ -28,8 +28,8 @@ QuantumFuse is a next-generation blockchain platform that leverages quantum comp
 
 ## Project Structure
 
-- `quantumfuse_node.py`: Core implementation of the QuantumFuse blockchain node
-- `blockchain_api.py`: RESTful and GraphQL API for interacting with the blockchain
+- `quantumfuse_node_main.py`: Core implementation of the QuantumFuse blockchain node
+- `quantumfuse_blockchain.py`: RESTful and GraphQL API for interacting with the blockchain
 - `ui_dashboard.html`: Web-based dashboard for blockchain monitoring and interaction
 - `3d_model.py`: Blender script for generating 3D visualizations of the blockchain
 - `requirements.txt`: List of Python dependencies
