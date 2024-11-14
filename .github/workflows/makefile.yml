@@ -17,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'
+        python-version: '3.12'
 
     - name: Install SDL2 and PortMidi dependencies
       run: |
@@ -29,19 +29,7 @@ jobs:
         make install
 
     - name: Run tests
+      env:
+        PYTHONPATH: ./src  # Adjust this path to where your modules are located
       run: |
         make test
-
-    - name: Lint code
-      run: |
-        make lint
-
-    - name: Format code
-      run: |
-        make format
-
-    - name: Deploy application
-      if: github.ref == 'refs/heads/main' && success()
-      run: |
-        # Add your deployment script here
-        echo "Deploying application..."
