@@ -30,9 +30,6 @@ test-blockchain:
 test-3d-model:
 	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)/test_quantumfuse_3d_model.py
 
-clean:
-	find . -type f -name '*.pyc' -delete
-	find . -type d -name '__pycache__' -delete
 # Clean up __pycache__ and other temporary files
 clean:
 	find . -type d -name "__pycache__" -exec rm -r {} + || true
