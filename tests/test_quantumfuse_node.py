@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from quantumfuse_blockchain import Transaction
-from quantumfuse_node import QuantumFuseNode
+from src.quantumfuse_blockchain import Transaction
+from src.quantumfuse_node import QuantumFuseNode
 
 
 class TestQuantumFuseNode(unittest.TestCase):
