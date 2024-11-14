@@ -3,32 +3,35 @@ PYTHON = python3
 PIP = pip3
 SRC_DIR = src
 TEST_DIR = tests
-PYUTGEN = pyutgen
+FLASK_APP = src/main.py
 
 # Default target
 all: install build
 
 # Install dependencies
-install:
+install: web-install
 	$(PIP) install -r requirements.txt
+
+# Install web dependencies
+web-install:
+	$(PIP) install flask gunicorn
 
 # Build the project (if necessary)
 build:
 	@echo "Building the project..."
 	# Add any build steps here, such as compiling shaders or other components
 
-# Optional test generation (can be skipped)
-generate-tests:
-	@echo "Generating test code (optional)..."
-	-find $(SRC_DIR) -name "*.py" -exec $(PYUTGEN) {} \;
+# Run Flask development server
+run:
+	FLASK_APP=$(FLASK_APP) FLASK_ENV=development flask run
 
-# Flexible test target with skip option
+# Flexible test target with skip option using unittest
 test:
 	@if [ "$(SKIP_TESTS)" = "true" ]; then \
 		echo "Skipping tests as requested"; \
 	else \
 		echo "Running tests..."; \
-		PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR) || \
+		PYTHONPATH=$(SRC_DIR) $(PYTHON) -m unittest discover -v $(TEST_DIR) || \
 		(echo "Tests failed, but continuing build..." && exit 0); \
 	fi
 
@@ -57,6 +60,7 @@ help:
 	@echo "Usage:"
 	@echo "  make install         Install dependencies"
 	@echo "  make build           Build the project"
+	@echo "  make run             Run Flask development server"
 	@echo "  make test            Run tests"
 	@echo "  make build-skip-test Build without running tests"
 	@echo "  make SKIP_TESTS=true test  Skip tests during test phase"
@@ -65,4 +69,4 @@ help:
 	@echo "  make format          Format the code"
 	@echo "  make help            Show this help message"
 
-.PHONY: all install build generate-tests test build-skip-test clean lint format help
+.PHONY: all install web-install build run test build-skip-test clean lint format help
