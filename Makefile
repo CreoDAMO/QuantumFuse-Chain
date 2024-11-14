@@ -3,7 +3,7 @@ PYTHON = python3
 PIP = pip3
 SRC_DIR = src/quantumfuse
 TEST_DIR = tests
-FLASK_APP = src/quantumfuse/main.py
+FLASK_APP = src/main.py
 PYTHONPATH := $(PYTHONPATH):$(shell pwd)/src
 
 # Default target
