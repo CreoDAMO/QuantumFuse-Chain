@@ -103,7 +103,7 @@ class QuantumFuseNode:
         return identity in self.identity_registry
 
     def verify_signature(self, signature: str, transaction: Transaction) -> bool:
-        # Implement signature verification logic
+ # Implement signature verification logic
         return True  # Placeholder
 
     def is_validator(self) -> bool:
