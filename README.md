@@ -28,13 +28,34 @@ QuantumFuse is a next-generation blockchain platform that leverages quantum comp
 
 ## Project Structure
 
-- `quantumfuse_node_main.py`: Core implementation of the QuantumFuse blockchain node
-- `quantumfuse_blockchain.py`: RESTful and GraphQL API for interacting with the blockchain
-- `ui_dashboard.html`: Web-based dashboard for blockchain monitoring and interaction
-- `3d_model.py`: Blender script for generating 3D visualizations of the blockchain
-- `requirements.txt`: List of Python dependencies
-- `package.json`: Node.js dependencies for the frontend
-- `tests/`: Directory containing all test files
+```
+project_root/
+│
+├── .github/
+│   └── workflows/
+│       └── makefile.yml
+│
+├── src/
+│   ├── templates/
+│   │   ├── dashboard.html  (new)
+│   │   └── wallet.html     (new)
+│   ├── quantumfuse_3d_model.py
+│   ├── quantumfuse_blockchain.py
+│   ├── quantumfuse_node.py
+│   └── main.py             (new)
+│
+├── tests/
+│   ├── test_quantumfuse_3d_model.py
+│   ├── test_quantumfuse_node.py
+│   └── test_quatumfuse_blockchain.py
+│
+├── .gitignore
+├── LICENSE
+├── Makefile
+├── README.md
+├── requirements.txt
+└── wsgi.py                 (new)
+```
 
 ## Setup and Installation
 
@@ -53,10 +74,7 @@ QuantumFuse is a next-generation blockchain platform that leverages quantum comp
 
 ### Frontend (Node.js)
 
-1. Install Node.js dependencies:
-   ```
-   npm install
-   ```
+1. Will be updated shortly
 
 ### GNU Parallel (Optional)
 
@@ -115,15 +133,6 @@ Our test suite includes:
 - VR/AR visualization component tests
 - AI optimization tests
 
-## 3D Visualization
-
-To generate the 3D model:
-
-1. Open Blender
-2. Go to Scripting workspace
-3. Open `3d_model.py`
-4. Run the script
-
 ## CI/CD Pipeline
 
 Our CI/CD pipeline includes:
@@ -149,78 +158,4 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 - Discord: [QuantumFuse Community](https://discord.gg/quantumfuse)
 
 
-## Makefile
 
-```makefile
-.PHONY: install test lint lint-parallel build run clean docs dev 3d-model help
-
-# Variables
-PYTHON = python
-PIP = pip
-NPM = npm
-PARALLEL := $(shell command -v parallel 2> /dev/null)
-
-# Install dependencies
-install:
-	$(PIP) install -r requirements.txt
-	$(NPM) install
-
-# Run tests
-test:
-	pytest tests
-
-# Run linters
-lint:
-	flake8 .
-	eslint .
-
-# Run linters in parallel
-lint-parallel:
-ifndef PARALLEL
-	$(error "GNU Parallel is not available. Please install it or use the regular 'lint' task.")
-endif
-	@echo "Running linters in parallel..."
-	@parallel --jobs 2 --halt soon,fail=1 ::: \
-		"flake8 . || (echo 'Python linting failed'; exit 1)" \
-		"eslint . || (echo 'JavaScript linting failed'; exit 1)"
-
-# Build the project
-build:
-	$(PYTHON) setup.py build
-
-# Run the blockchain node
-run:
-	$(PYTHON) quantumfuse_node.py
-
-# Clean up build artifacts
-clean:
-	rm -rf build dist *.egg-info
-	find . -type f -name '*.pyc' -delete
-	find . -type d -name '__pycache__' -delete
-
-# Generate documentation
-docs:
-	sphinx-build -b html docs/source docs/build
-
-# Run the development server
-dev:
-	$(PYTHON) blockchain_api.py
-
-# Generate 3D model (requires Blender)
-3d-model:
-	blender --background --python 3d_model.py
-
-# Help command
-help:
-	@echo "Available commands:"
-	@echo "  make install       : Install dependencies"
-	@echo "  make test          : Run tests"
-	@echo "  make lint          : Run linters"
-	@echo "  make lint-parallel : Run linters in parallel (requires GNU Parallel)"
-	@echo "  make build         : Build the project"
-	@echo "  make run           : Run the blockchain node"
-	@echo "  make clean         : Clean up build artifacts"
-	@echo "  make docs          : Generate documentation"
-	@echo "  make dev           : Run the development server"
-	@echo "  make 3d-model      : Generate 3D model (requires Blender)"
-```
