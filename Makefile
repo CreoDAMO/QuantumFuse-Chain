@@ -19,12 +19,20 @@ run:
 
 # Run tests
 test:
-	@if [ -d "$(TEST_DIR)" ]; then \
-		pytest $(TEST_DIR); \
-	else \
-		echo "Test directory not found."; \
-	fi
+	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)
 
+test-node:
+	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)/test_quantumfuse_node.py
+
+test-blockchain:
+	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)/test_quantumfuse_blockchain.py
+
+test-3d-model:
+	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)/test_quantumfuse_3d_model.py
+
+clean:
+	find . -type f -name '*.pyc' -delete
+	find . -type d -name '__pycache__' -delete
 # Clean up __pycache__ and other temporary files
 clean:
 	find . -type d -name "__pycache__" -exec rm -r {} + || true
