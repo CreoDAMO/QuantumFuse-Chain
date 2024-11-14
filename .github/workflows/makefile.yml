@@ -29,6 +29,8 @@ jobs:
         make install
 
     - name: Run tests
+      env:
+        PYTHONPATH: src  # Add src to PYTHONPATH
       run: |
         make test
 
@@ -43,5 +45,4 @@ jobs:
     - name: Deploy application
       if: github.ref == 'refs/heads/main' && success()
       run: |
-        # Add your deployment script here
         echo "Deploying application..."
