@@ -1,5 +1,3 @@
-// tests/test_quantumfuse_3d_model.py
-
 import pytest
 from unittest.mock import MagicMock
 from quantumfuse_3d_model import QuantumFuse3DVisualizer
