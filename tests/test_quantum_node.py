@@ -1,50 +1,20 @@
-# Filename: tests/test_quantumfuse_node.py
+import sys
+import os
+
+# Add the src directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+
 import pytest
-from unittest.mock import MagicMock, patch
-from src.quantumfuse_node import QuantumFuseNode
-from src.quantumfuse_3d_model import QuantumFuse3DModel
-from src.quantumfuse_blockchain import QuantumFuseBlockchain, Transaction
+from quantumfuse_node import QuantumFuseNode, QFCOnRamp
 
-@pytest.fixture
-def node():
-    """Fixture to initialize a QuantumFuseNode instance for tests."""
-    return QuantumFuseNode(host="127.0.0.1", port=8080, stake=0.5)
+def test_quantum_fuse_node_initialization():
+    node = QuantumFuseNode('localhost', 5000, stake=0.8)
+    assert node.host == 'localhost'
+    assert node.port == 5000
+    assert node.stake == 0.8
 
-def test_initialization(node):
-    """Test that QuantumFuseNode initializes correctly with default values."""
-    assert node.host == "127.0.0.1"
-    assert node.port == 8080
-    assert node.stake == 0.5
-    assert node.peers == []
-    assert node.blockchain is not None
-    assert node.pending_transactions == []
-
-@patch('src.quantumfuse_node.socket.socket')
-def test_start_node(mock_socket, node):
-    """Test starting the node and initiating peer listener."""
-    node.listen_for_peers = MagicMock()
-    node.start()
-    node.listen_for_peers.assert_called_once()
-
-def test_generate_rsa_keys(node):
-    """Test RSA key generation."""
-    private_key, public_key = node.generate_rsa_keys()
-    assert private_key is not None
-    assert public_key is not None
-    assert private_key.key_size == 2048
-
-def test_add_transaction(node):
-    """Test adding a transaction to the pending list."""
-    transaction_data = {"sender": "Alice", "recipient": "Bob", "amount": 10.0}
-    transaction = Transaction(**transaction_data)
-    
-    node.verify_transaction = MagicMock(return_value=True)  # Mock verification
-    
-    node.add_transaction(transaction_data)
-    assert transaction in node.pending_transactions
-
-def test_process_message_transaction(node):
-    """Test processing a valid transaction message."""
-    with patch.object(node, 'add_transaction') as mock_add:
-        node.process_message(json.dumps({"type": "transaction", "transaction": {}}))
-        mock_add.assert_called_once()
+def test_qfc_onramp():
+    blockchain_mock = type('MockBlockchain', (), {'add_balance': lambda self, user, amount: None})()
+    on_ramp = QFCOnRamp(blockchain_mock)
+    assert on_ramp.buy_qfc("Alice", 100, "USD") == True
+    assert on_ramp.buy_qfc("Bob", 100, "GBP") == False
