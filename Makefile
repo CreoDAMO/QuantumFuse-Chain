@@ -3,7 +3,7 @@ PYTHON = python3
 PIP = pip3
 SRC_DIR = src/quantumfuse
 TEST_DIR = tests
-FLASK_APP = src/main.py
+FLASK_APP = src/quantumfuse/main.py
 PYTHONPATH := $(PYTHONPATH):$(shell pwd)/src
 
 # Default target
@@ -12,6 +12,7 @@ all: install build
 # Install dependencies
 install: web-install
 	$(PIP) install -r requirements.txt
+	$(PIP) install flake8 black
 
 # Install web dependencies
 web-install:
@@ -48,11 +49,23 @@ clean:
 
 # Lint the code
 lint:
-	flake8 $(SRC_DIR) $(TEST_DIR)
+	@echo "Running flake8 linter..."
+	@if command -v flake8 >/dev/null 2>&1; then \
+		flake8 $(SRC_DIR) $(TEST_DIR) || exit 1; \
+	else \
+		echo "flake8 is not installed. Install it with 'make install'"; \
+		exit 1; \
+	fi
 
 # Format the code
 format:
-	black $(SRC_DIR) $(TEST_DIR)
+	@echo "Formatting code with black..."
+	@if command -v black >/dev/null 2>&1; then \
+		black $(SRC_DIR) $(TEST_DIR) || exit 1; \
+	else \
+		echo "black is not installed. Install it with 'make install'"; \
+		exit 1; \
+	fi
 
 # Run the application using gunicorn
 serve:
@@ -62,6 +75,11 @@ serve:
 venv:
 	$(PYTHON) -m venv venv
 	@echo "Virtual environment created. Activate it with 'source venv/bin/activate'"
+	@echo "Then run 'make install' to install dependencies"
+
+# Validate and prepare for commit
+pre-commit: lint format test
+	@echo "Code is ready for commit"
 
 # Help
 help:
@@ -79,6 +97,7 @@ help:
 	@echo "  make format          Format the code"
 	@echo "  make serve           Run the application using gunicorn"
 	@echo "  make venv            Create a virtual environment"
+	@echo "  make pre-commit      Lint, format, and test before commit"
 	@echo "  make help            Show this help message"
 
-.PHONY: all install web-install build run test build-skip-test clean lint format serve venv help
+.PHONY: all install web-install build run test build-skip-test clean lint format serve venv pre-commit help
