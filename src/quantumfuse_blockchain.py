@@ -1,5 +1,3 @@
-// src/quantumfuse_blockchain.py
-
 import hashlib
 import time
 import json
