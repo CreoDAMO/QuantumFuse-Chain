@@ -19,10 +19,10 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install SDL2 dependencies
+    - name: Install SDL2 and PortMidi dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+        sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev
 
     - name: Install dependencies
       run: |
