@@ -30,31 +30,29 @@ QuantumFuse is a next-generation blockchain platform that leverages quantum comp
 
 ```
 project_root/
-│
 ├── .github/
 │   └── workflows/
 │       └── makefile.yml
-│
 ├── src/
-│   ├── templates/
-│   │   ├── dashboard.html  (new)
-│   │   └── wallet.html     (new)
-│   ├── quantumfuse_3d_model.py
-│   ├── quantumfuse_blockchain.py
-│   ├── quantumfuse_node.py
-│   └── main.py             (new)
-│
+│   └── quantumfuse/
+│       ├── __init__.py
+│       ├── main.py
+│       ├── quantumfuse_3d_model.py
+│       ├── quantumfuse_blockchain.py
+│       ├── quantumfuse_node.py
+│       └── templates/
+│           ├── dashboard.html
+│           └── wallet.html
 ├── tests/
 │   ├── test_quantumfuse_3d_model.py
 │   ├── test_quantumfuse_node.py
 │   └── test_quatumfuse_blockchain.py
-│
 ├── .gitignore
 ├── LICENSE
 ├── Makefile
 ├── README.md
 ├── requirements.txt
-└── wsgi.py                 (new)
+└── wsgi.py
 ```
 
 ## Setup and Installation
