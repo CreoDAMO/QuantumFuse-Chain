@@ -19,13 +19,17 @@ run:
 
 # Run tests
 test:
-	pytest $(TEST_DIR)
+	@if [ -d "$(TEST_DIR)" ]; then \
+		pytest $(TEST_DIR); \
+	else \
+		echo "Test directory not found."; \
+	fi
 
 # Clean up __pycache__ and other temporary files
 clean:
-	find . -type d -name "__pycache__" -exec rm -r {} +
-	find . -type f -name "*.pyc" -delete
-	find . -type f -name "*.pyo" -delete
+	find . -type d -name "__pycache__" -exec rm -r {} + || true
+	find . -type f -name "*.pyc" -delete || true
+	find . -type f -name "*.pyo" -delete || true
 
 # Lint the code
 lint:
