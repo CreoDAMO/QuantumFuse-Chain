@@ -396,7 +396,8 @@ def main():
     visualizer.create_cross_chain_link(Vector3(-5, 0, 0), Vector3(5, 0, 0), "Ethereum")
     visualizer.create_cross_chain_link(Vector3(0, -5, 0), Vector3(0, 5, 0), "Polkadot")
     visualizer.create_layer2_network(Vector3(0, 0, 5))
-        for _ in range(10):
+    
+    for _ in range(10):
         position = Vector3(random.uniform(-5, 5), random.uniform(-5, 5), random.uniform(-2, 2))
         visualizer.create_quantum_node(position)
     
