@@ -1,4 +1,4 @@
-// src/test_quantum_node_main.py
+// tests/test_quantum_node_main.py
 
 import pytest
 from unittest.mock import MagicMock, patch
