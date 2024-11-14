@@ -1,6 +1,6 @@
-pygame==2.1.2
-PyOpenGL==3.1.6
-numpy==1.21.5
+pygame 2.6.1
+PyOpenGL 3.1.7
+numpy==2.1.1
 requests==2.27.1
 cryptography==36.0.2
 torch==1.11.0
