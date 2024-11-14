@@ -2,7 +2,8 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from src.quantumfuse_node import QuantumFuseNode
-from src.quantumfuse_blockchain import Transaction, Block
+from src.quantumfuse_3d_model import QuantumFuse3DModel
+from src.quantumfuse_blockchain import QuantumFuseBlockchain, Transaction
 
 @pytest.fixture
 def node():
