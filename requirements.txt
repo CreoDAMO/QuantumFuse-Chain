@@ -1,10 +1,10 @@
-pygame 2.6.1
-PyOpenGL 3.1.7
+pygame==2.6.1
+PyOpenGL==3.1.7
 numpy==2.1.1
 requests==2.27.1
-cryptography==36.0.2
-torch==1.11.0
-scikit-learn==1.0.2
-networkx==2.7.1
-matplotlib==3.5.1
-pytest==7.1.2
+cryptography==43.0.3
+torch==2.5.1
+scikit-learn==1.5.2
+networkx==3.4.2
+matplotlib==3.9.2
+pytest==8.3.3
