@@ -15,7 +15,7 @@ install:
 
 # Run the QuantumFuse node
 run:
-	$(PYTHON) $(SRC_DIR)/quantumfuse_node_main.py
+	$(PYTHON) $(SRC_DIR)/quantumfuse_node.py
 
 # Run tests
 test:
