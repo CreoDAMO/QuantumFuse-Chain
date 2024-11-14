@@ -1,0 +1,10 @@
+modules = ["web", "python-3.12"]
+compile = "make"
+run = "make venv source venv/bin/activate "
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+build = ["sh", "-c", "make"]
+run = ["sh", "-c", "make venv source venv/bin/activate "]
