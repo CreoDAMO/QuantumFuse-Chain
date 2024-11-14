@@ -497,7 +497,7 @@ class EnhancedQuantumFuseBlockchain:
             else:
                 raise ValueError("State channel not found")
 
-                def create_plasma_block(self, transactions: List[Dict]):
+        def create_plasma_block(self, transactions: List[Dict]):
             block = {
                 "transactions": transactions,
                 "merkle_root": self.calculate_merkle_root(transactions),
@@ -744,6 +744,7 @@ class EnhancedQuantumFuseBlockchain:
 # Main blockchain usage
 if __name__ == "__main__":
     blockchain = EnhancedQuantumFuseBlockchain(num_shards=3, difficulty=4)
+    
     # Create and add a transaction
     private_key = rsa.generate_private_key(
         public_exponent=65537,
@@ -754,42 +755,54 @@ if __name__ == "__main__":
     tx.sign_transaction(private_key)
     result = blockchain.add_transaction(tx)
     print(f"Transaction added: {result}")
+    
     # Mine a block
     mined_block = blockchain.mine_block("MinerAddress")
     if mined_block:
         print(f"Block mined: {mined_block.hash}")
+    
     # Generate fusion reactor energy
     energy_generated = blockchain.fusion_reactor.generate_energy(1)
     print(f"Fusion reactor energy generated: {energy_generated} MJ")
+    
     # Get QFC balance
     alice_balance = blockchain.get_qfc_balance("Alice")
     print(f"Alice's QFC balance: {alice_balance}")
+    
     # Create an NFT
     nft_id = "NFT1"
     blockchain.nft_marketplace.mint_nft(nft_id, "Alice", {"name": "First NFT", "description": "This is the first NFT on QuantumFuse"})
     print(f"NFT created: {nft_id}")
+    
     # Place an order on the DEX
     blockchain.decentralized_exchange.place_order("Alice", "QFC", 50, 1.0, True)
     print("Order placed on DEX")
+    
     # Open a state channel
     channel_id = blockchain.layer2_solution.open_state_channel("Alice", "Bob", 100)
     print(f"State channel opened: {channel_id}")
+    
     # Create a decentralized identity
     blockchain.identity_manager.create_identity("Alice", public_key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo
     ).decode())
     print("Decentralized identity created for Alice")
+    
     # Perform KYC
     blockchain.compliance_tools.perform_kyc("Alice", {"name": "Alice", "age": 30, "country": "Wonderland"})
     print("KYC performed for Alice")
+    
     # Use the on-ramp to buy QFC
     blockchain.on_ramp.buy_qfc("Alice", 100, "USD")
     print(f"Alice's QFC balance after purchase: {blockchain.get_qfc_balance('Alice')}")
+    
     # Try with an unsupported currency
     blockchain.on_ramp.buy_qfc("Bob", 100, "GBP")
+    
     # Start visualization in a separate thread
     threading.Thread(target=blockchain.visualization.start, daemon=True).start()
+    
     # Main loop
     try:
         while True:
