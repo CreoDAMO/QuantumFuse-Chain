@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
-from quantumfuse_blockchain import QuantumFuseBlockchain
-from quantumfuse_3d_visualizer import QuantumFuse3DVisualizer
+from src.quantumfuse_blockchain import QuantumFuseBlockchain
+from src.quantumfuse_3d_visualizer import QuantumFuse3DVisualizer
 from pygame.math import Vector3
 
 class TestQuantumFuse3DVisualizer(unittest.TestCase):
