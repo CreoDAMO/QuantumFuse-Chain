@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from src.quantumfuse_blockchain import Transaction
-from src.quantumfuse_node import QuantumFuseNode
+from quantumfuse_blockchain import Transaction
+from quantumfuse_node import QuantumFuseNode
 
 
 class TestQuantumFuseNode(unittest.TestCase):
@@ -21,7 +21,8 @@ class TestQuantumFuseNode(unittest.TestCase):
         self.node.add_transaction(transaction_data)
 
         # Assert that the transaction is in pending transactions
-        self.assertEqual(len(self.node.pending_transactions), 1, "Transaction should be added to pending transactions")
+        self.assertEqual(len(self.node.pending_transactions), 1,
+                         "Transaction should be added to pending transactions")
 
     @patch('quantumfuse_node.socket.socket')
     def test_mine_block(self, mock_socket):
@@ -60,7 +61,8 @@ class TestQuantumFuseNode(unittest.TestCase):
         self.node.add_transaction(transaction_data)
 
         # Assert that the transaction is not added
-        self.assertEqual(len(self.node.pending_transactions), 0, "Invalid transaction should not be added")
+        self.assertEqual(len(self.node.pending_transactions), 0,
+                         "Invalid transaction should not be added")
 
     @patch('quantumfuse_node.socket.socket')
     def test_listen_for_peers(self, mock_socket):
@@ -68,6 +70,7 @@ class TestQuantumFuseNode(unittest.TestCase):
         with patch.object(self.node, 'listen_for_peers', return_value=None) as mock_listen:
             self.node.start()
             self.assertTrue(mock_listen.called, "Listening for peers should be initiated")
+
 
 if __name__ == "__main__":
     unittest.main()
