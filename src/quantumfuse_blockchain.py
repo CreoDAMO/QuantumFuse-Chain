@@ -36,52 +36,56 @@ transaction_fragment_shader = """
 # Fragment shader code here
 """
 class Transaction:
-def __init__(self, sender: str, recipient: str, amount: float, asset: str = "QFC"):
-self.sender = sender
-self.recipient = recipient
-self.amount = amount
-self.asset = asset
-self.timestamp = time.time()
-self.signature = ""
-def to_dict(self) -> Dict[str, Any]:
-return {
-"sender": self.sender,
-"recipient": self.recipient,
-"amount": self.amount,
-"asset": self.asset,
-"timestamp": self.timestamp,
-"signature": self.signature
-}
-def calculate_hash(self) -> str:
-transaction_string = json.dumps(self.to_dict(), sort_keys=True)
-return hashlib.sha256(transaction_string.encode()).hexdigest()
-def sign_transaction(self, private_key: rsa.RSAPrivateKey):
-transaction_hash = self.calculate_hash().encode()
-signature = private_key.sign(
-transaction_hash,
-padding.PSS(
-mgf=padding.MGF1(hashes.SHA256()),
-salt_length=padding.PSS.MAX_LENGTH
-),
-hashes.SHA256()
-)
-self.signature = signature.hex()
-def verify_signature(self, public_key: rsa.RSAPublicKey) -> bool:
-try:
-signature = bytes.fromhex(self.signature)
-transaction_hash = self.calculate_hash().encode()
-public_key.verify(
-signature,
-transaction_hash,
-padding.PSS(
-mgf=padding.MGF1(hashes.SHA256()),
-salt_length=padding.PSS.MAX_LENGTH
-),
-hashes.SHA256()
-)
-return True
-except InvalidSignature:
-return False
+    def __init__(self, sender: str, recipient: str, amount: float, asset: str = "QFC"):
+        self.sender = sender
+        self.recipient = recipient
+        self.amount = amount
+        self.asset = asset
+        self.timestamp = time.time()
+        self.signature = ""
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "sender": self.sender,
+            "recipient": self.recipient,
+            "amount": self.amount,
+            "asset": self.asset,
+            "timestamp": self.timestamp,
+            "signature": self.signature
+        }
+
+    def calculate_hash(self) -> str:
+        transaction_string = json.dumps(self.to_dict(), sort_keys=True)
+        return hashlib.sha256(transaction_string.encode()).hexdigest()
+
+    def sign_transaction(self, private_key: rsa.RSAPrivateKey):
+        transaction_hash = self.calculate_hash().encode()
+        signature = private_key.sign(
+            transaction_hash,
+            padding.PSS(
+                mgf=padding.MGF1(hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH
+            ),
+            hashes.SHA256()
+        )
+        self.signature = signature.hex()
+
+    def verify_signature(self, public_key: rsa.RSAPublicKey) -> bool:
+        try:
+            signature = bytes.fromhex(self.signature)
+            transaction_hash = self.calculate_hash().encode()
+            public_key.verify(
+                signature,
+                transaction_hash,
+                padding.PSS(
+                    mgf=padding.MGF1(hashes.SHA256()),
+                    salt_length=padding.PSS.MAX_LENGTH
+                ),
+                hashes.SHA256()
+            )
+            return True
+        except InvalidSignature:
+            return False
 class Block:
 def __init__(self, index: int, transactions: List[Transaction], previous_hash: str, nonce: int = 0):
 self.index = index
