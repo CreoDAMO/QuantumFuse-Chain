@@ -1,34 +1,31 @@
-# Makefile for QuantumFuse Blockchain Project
-
 # Variables
 PYTHON = python3
 PIP = pip3
 SRC_DIR = src
 TEST_DIR = tests
+PYUTGEN = pyutgen
 
 # Default target
-all: install
+all: install build test
 
 # Install dependencies
 install:
 	$(PIP) install -r requirements.txt
 
-# Run the QuantumFuse node
-run:
-	$(PYTHON) $(SRC_DIR)/quantumfuse_node.py
+# Build the project (if necessary)
+build:
+	@echo "Building the project..."
+	# Add any build steps here, such as compiling shaders or other components
+
+# Generate test code using pyutgenerator
+generate-tests:
+	@echo "Generating test code..."
+	# Generate test code for each Python file in the source directory
+	find $(SRC_DIR) -name "*.py" -exec $(PYUTGEN) {} \;
 
 # Run tests
-test:
+test: generate-tests
 	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)
-
-test-node:
-	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)/test_quantumfuse_node.py
-
-test-blockchain:
-	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)/test_quantumfuse_blockchain.py
-
-test-3d-model:
-	PYTHONPATH=$(SRC_DIR) pytest $(TEST_DIR)/test_quantumfuse_3d_model.py
 
 # Clean up __pycache__ and other temporary files
 clean:
@@ -49,12 +46,13 @@ help:
 	@echo "Makefile for QuantumFuse Blockchain Project"
 	@echo ""
 	@echo "Usage:"
-	@echo "  make install     Install dependencies"
-	@echo "  make run         Run the QuantumFuse node"
-	@echo "  make test        Run tests"
-	@echo "  make clean       Clean up temporary files"
-	@echo "  make lint        Lint the code"
-	@echo "  make format      Format the code"
-	@echo "  make help        Show this help message"
+	@echo "  make install         Install dependencies"
+	@echo "  make build           Build the project"
+	@echo "  make generate-tests  Generate test code using pyutgenerator"
+	@echo "  make test            Run tests"
+	@echo "  make clean           Clean up temporary files"
+	@echo "  make lint            Lint the code"
+	@echo "  make format          Format the code"
+	@echo "  make help            Show this help message"
 
-.PHONY: all install run test clean lint format help
+.PHONY: all install build generate-tests test clean lint format help
