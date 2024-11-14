@@ -10,7 +10,6 @@ from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.backends import default_backend
 import requests
-
 from quantumfuse_blockchain import QuantumFuseBlockchain, Transaction, Block
 from quantumfuse_3d_model import QuantumFuse3DModel
 
@@ -25,11 +24,9 @@ class QuantumFuseNode:
         self.multi_sig_transactions = []
         self.identity_registry = {}  # Store decentralized identities (DIDs)
         self.visualizer = QuantumFuse3DModel()
-        
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(5)
-        
         self.private_key, self.public_key = self.generate_rsa_keys()
         self.on_ramp = QFCOnRamp(self.blockchain)
 
@@ -103,7 +100,7 @@ class QuantumFuseNode:
         return identity in self.identity_registry
 
     def verify_signature(self, signature: str, transaction: Transaction) -> bool:
- # Implement signature verification logic
+        # Implement signature verification logic
         return True  # Placeholder
 
     def is_validator(self) -> bool:
