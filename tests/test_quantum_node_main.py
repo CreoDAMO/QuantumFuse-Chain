@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock, patch
-from main import QuantumFuseNode, QFCOnRamp
+from src.quantumfuse_node_main import QuantumFuseNode, QFCOnRamp
 
 @pytest.fixture
 def mock_blockchain():
