@@ -9,3 +9,5 @@ networkx==3.4.2
 matplotlib==3.9.2
 pytest==8.3.3
 pyutgenerator==0.12.0
+flake8==6.1.0
+black==23.12.1
