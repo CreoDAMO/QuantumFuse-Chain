@@ -1,0 +1,91 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Node.js 20 compatible
+
+      - name: Install dependencies
+        run: |
+          make install
+
+      - name: Lint code
+        run: |
+          make lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Node.js 20 compatible
+
+      - name: Install SDL2 dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+
+      - name: Install dependencies
+        run: |
+          make install
+
+      - name: Run tests
+        run: |
+          make test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3  # Node.js 20 compatible
+        with:
+          name: test-results
+          path: tests/reports
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Node.js 20 compatible
+
+      - name: Install dependencies
+        run: |
+          make install
+
+      - name: Format code
+        run: |
+          make format
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' && success()
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Node.js 20 compatible
+
+      - name: Install dependencies
+        run: |
+          make install
+
+      - name: Deploy application
+        run: |
+          echo "Deploying application..."
