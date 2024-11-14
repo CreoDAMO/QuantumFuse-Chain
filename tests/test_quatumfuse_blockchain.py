@@ -1,6 +1,6 @@
 import unittest
 import json
-from quantumfuse_blockchain import EnhancedQuantumFuseBlockchain, Transaction
+from src.quantumfuse_blockchain import EnhancedQuantumFuseBlockchain, Transaction
 from cryptography.hazmat.primitives.asymmetric import rsa
 
 class TestEnhancedQuantumFuseBlockchain(unittest.TestCase):
