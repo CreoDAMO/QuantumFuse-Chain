@@ -1,5 +1,3 @@
-// src/quantumfuse_node_main.py
-
 import hashlib
 import json
 import time
