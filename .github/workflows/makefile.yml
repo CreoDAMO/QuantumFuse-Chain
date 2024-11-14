@@ -17,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.12'  # Updated to match your project's Python version
+        python-version: '3.12'
 
     - name: Install SDL2 dependencies
       run: |
@@ -39,11 +39,12 @@ jobs:
     - name: Run tests
       env:
         SKIP_TESTS: ${{ github.event_name == 'pull_request' && 'false' || 'true' }}
+        PYTHONPATH: ${{ github.workspace }}
       run: |
         make test
 
     - name: Lint code
-      continue-on-error: true  # Optional: don't fail the build for linting issues
+      continue-on-error: true
       run: |
         make lint
 
@@ -52,6 +53,8 @@ jobs:
         make format
 
     - name: Test Flask application
+      env:
+        PYTHONPATH: ${{ github.workspace }}
       run: |
         python -m unittest discover -v tests
 
@@ -79,4 +82,4 @@ jobs:
         echo "Deploying application..."
         # Add your deployment scripts here
         # For example, you might use gunicorn to run your Flask app:
-        # gunicorn wsgi:app
+        # gunicorn src.main:app
