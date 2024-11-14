@@ -6,25 +6,20 @@ QuantumFuse is a next-generation blockchain platform that leverages quantum comp
 
 ## Key Features
 
-- Sharded architecture for high scalability
-- Post-quantum cryptography for future-proof security
-- Green Proof of Work (PoW) consensus mechanism
-- Smart contracts with visual builder
-- NFT marketplace with fractional ownership and cross-chain support
-- Decentralized Exchange (DEX) integration
-- Layer 2 scaling solutions
-- AI-driven optimization for transaction routing and network efficiency
-- VR/AR integration for blockchain visualization
-- Fusion reactor simulation for educational purposes
-- Environmental impact tracking and carbon credit system
+- Quantum-resistant cryptography
+- Sharded blockchain architecture
+- Advanced consensus mechanism
+- Smart contract support
+- Decentralized application (dApp) framework
+- Integrated 3D visualization
+- Sustainable blockchain design
 
 ## Prerequisites
 
 - Python 3.8+
-- Node.js 14+
+- pip
 - GNU Make
-- GNU Parallel (optional, for parallel linting)
-- Blender (for 3D visualizations)
+- Virtual environment support
 
 ## Project Structure
 
@@ -55,105 +50,100 @@ project_root/
 └── wsgi.py
 ```
 
-## Setup and Installation
+## Quick Start
 
-### Backend (Python)
+### Installation
 
-1. Create a virtual environment:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-
-2. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-### Frontend (Node.js)
-
-1. Will be updated shortly
-
-### GNU Parallel (Optional)
-
-To install GNU Parallel on Ubuntu/Debian:
-```
-sudo apt-get install parallel
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/quantumfuse.git
+cd quantumfuse
 ```
 
-On macOS with Homebrew:
+2. Create and activate a virtual environment:
+```bash
+make venv
+source venv/bin/activate
 ```
-brew install parallel
+
+3. Install dependencies:
+```bash
+make install
 ```
 
-## Running the Project
+### Development Workflow
 
-1. Start the blockchain node:
-   ```
-   python quantumfuse_node.py
-   ```
-
-2. Start the API server:
-   ```
-   python blockchain_api.py
-   ```
-
-3. Open `ui_dashboard.html` in a web browser to access the dashboard.
-
-## Development
-
-- Use `make lint` to run linters
-- Use `make lint-parallel` to run linters in parallel (requires GNU Parallel)
-- Use `make test` to run unit tests
-- Use `make build` to build the project
-- Use `make run` to start the blockchain node
-- Use `make clean` to remove build artifacts
-
-## Testing
-
-We use pytest for our test suite. To run all tests:
-
+- Run development server:
+```bash
+make run
 ```
+
+- Run tests:
+```bash
 make test
 ```
 
-Our test suite includes:
-- Unit tests for all components
-- Integration tests for cross-component functionality
-- Concurrency tests to ensure thread safety
-- Network partition simulation tests
-- Performance tests under various loads
-- Fuzzing tests for unexpected inputs
-- Upgrade tests for smooth system updates
-- Cross-shard transaction tests
-- Quantum resistance tests
-- Environmental impact tracking tests
-- VR/AR visualization component tests
-- AI optimization tests
+- Lint code:
+```bash
+make lint
+```
 
-## CI/CD Pipeline
+- Format code:
+```bash
+make format
+```
 
-Our CI/CD pipeline includes:
-- Automated testing on every pull request
-- Automated builds and deployments to staging environments
-- Performance benchmarking
-- Automated security scans
-- Deployment to production upon successful completion of all checks
+- Clean project:
+```bash
+make clean
+```
+
+## Makefile Targets
+
+| Command | Description |
+|---------|-------------|
+| `make install` | Install project dependencies |
+| `make run` | Start Flask development server |
+| `make test` | Run unit tests |
+| `make lint` | Run code linters |
+| `make format` | Format code using Black |
+| `make serve` | Run production server with Gunicorn |
+| `make clean` | Remove temporary files |
+| `make help` | Show all available commands |
+
+## Testing
+
+The project uses Python's `unittest` framework. Tests are located in the `tests/` directory and cover:
+- Blockchain functionality
+- Node operations
+- 3D model interactions
+- Cryptographic mechanisms
+
+## Code Quality
+
+- Linting with `flake8`
+- Code formatting with `black`
+- Comprehensive test coverage
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
+Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-- Website: [https://quantumfuse.io](https://quantumfuse.io)
+- Project Link: [https://github.com/yourusername/quantumfuse](https://github.com/yourusername/quantumfuse)
 - Email: contact@quantumfuse.tech
-- Twitter: [@QuantumFuse](https://twitter.com/QuantumFuse)
-- Discord: [QuantumFuse Community](https://discord.gg/quantumfuse)
 
+## Acknowledgments
 
-
+- Python Community
+- Blockchain Research Groups
+- Open Source Contributors
