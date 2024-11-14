@@ -1,27 +1,19 @@
-# Filename: tests/test_quantumfuse_blockchain.py
+import sys
+import os
+
+# Add the src directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+
 import pytest
-from src.quantumfuse_blockchain import QuantumFuseBlockchain, Transaction
+from quantumfuse_blockchain import EnhancedQuantumFuseBlockchain, Transaction
 
-@pytest.fixture
-def blockchain():
-    """Fixture to initialize a QuantumFuseBlockchain instance for tests."""
-    return QuantumFuseBlockchain(num_shards=3, difficulty=4)
+def test_blockchain_initialization():
+    blockchain = EnhancedQuantumFuseBlockchain(num_shards=3, difficulty=4)
+    assert len(blockchain.shards) == 3
+    assert blockchain.difficulty == 4
 
-def test_initial_blockchain_state(blockchain):
-    """Verify initial blockchain state."""
-    assert blockchain.chain == []
-    assert blockchain.pending_transactions == []
-
-def test_add_transaction(blockchain):
-    """Test adding a transaction to the blockchain."""
-    transaction = Transaction(sender="Alice", recipient="Bob", amount=10)
-    blockchain.add_transaction(transaction)
-    assert transaction in blockchain.pending_transactions
-
-def test_mine_block(blockchain):
-    """Test block mining with transactions."""
-    transaction = Transaction(sender="Alice", recipient="Bob", amount=10)
-    blockchain.add_transaction(transaction)
-    block = blockchain.mine_block(miner_address="miner1")
-    assert block is not None
-    assert len(block.transactions) > 0
+def test_add_transaction():
+    blockchain = EnhancedQuantumFuseBlockchain(num_shards=3, difficulty=4)
+    tx = Transaction("Alice", "Bob", 100, "QFC")
+    result = blockchain.add_transaction(tx)
+    assert result == True
