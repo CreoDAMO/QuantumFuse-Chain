@@ -1,8 +1,9 @@
 import unittest
 from unittest.mock import MagicMock
-from src.quantumfuse_blockchain import QuantumFuseBlockchain
-from src.quantumfuse_3d_visualizer import QuantumFuse3DVisualizer
+from quantumfuse_blockchain import QuantumFuseBlockchain
+from quantumfuse_3d_visualizer import QuantumFuse3DVisualizer
 from pygame.math import Vector3
+
 
 class TestQuantumFuse3DVisualizer(unittest.TestCase):
 
@@ -62,6 +63,7 @@ class TestQuantumFuse3DVisualizer(unittest.TestCase):
 
         self.assertEqual(len(self.visualizer.transactions), 1, "Transaction should be created from recent purchase")
         self.assertEqual(self.visualizer.transactions[0]["data"], "100 QFC", "Transaction data should reflect the purchase amount")
+
 
 if __name__ == "__main__":
     unittest.main()
