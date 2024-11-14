@@ -28,14 +28,13 @@ jobs:
       run: |
         make install
 
+    - name: Install web dependencies
+      run: |
+        make web-install
+
     - name: Build the project
       run: |
         make build
-
-    - name: Optional - Generate test code
-      continue-on-error: true  # Allow this step to fail without stopping the workflow
-      run: |
-        make generate-tests
 
     - name: Run tests
       env:
@@ -52,12 +51,10 @@ jobs:
       run: |
         make format
 
-    - name: Deploy application
-      if: github.ref == 'refs/heads/main' && success()
+    - name: Test Flask application
       run: |
-        echo "Deploying application..."
+        python -m unittest discover -v tests
 
-  # Optional: Add a separate job for deployment
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -67,7 +64,19 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        make install
+        make web-install
+
     - name: Deploy to production
       run: |
-        echo "Performing deployment steps..."
+        echo "Deploying application..."
         # Add your deployment scripts here
+        # For example, you might use gunicorn to run your Flask app:
+        # gunicorn wsgi:app
