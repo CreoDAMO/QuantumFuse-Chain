@@ -1,5 +1,3 @@
-// src/quantumfuse_3d_model.py
-
 import sys
 import math
 import random
