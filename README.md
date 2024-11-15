@@ -32,14 +32,12 @@ project_root/
 │   └── quantumfuse/
 │       ├── __init__.py
 │       ├── main.py
-│       ├── quantumfuse_3d_model.py
 │       ├── quantumfuse_blockchain.py
 │       ├── quantumfuse_node.py
 │       └── templates/
 │           ├── dashboard.html
 │           └── wallet.html
 ├── tests/
-│   ├── test_quantumfuse_3d_model.py
 │   ├── test_quantumfuse_node.py
 │   └── test_quatumfuse_blockchain.py
 ├── .gitignore
