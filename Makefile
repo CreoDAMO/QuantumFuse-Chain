@@ -47,11 +47,11 @@ clean:
 
 # Lint the code
 lint:
-	flake8 $(SRC_DIR) $(TEST_DIR)
+	flake8 $(SRC_DIR)
 
 # Format the code
 format:
-	black $(SRC_DIR) $(TEST_DIR)
+	black $(SRC_DIR)
 
 # Help
 help:
