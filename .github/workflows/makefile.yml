@@ -1,85 +1,29 @@
-name: CI/CD Pipeline
+name: CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push, pull_request]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
-    - name: Install SDL2 dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
-
-    - name: Install dependencies
-      run: |
-        make install
-
-    - name: Install web dependencies
-      run: |
-        make web-install
-
-    - name: Build the project
-      run: |
-        make build
-
-    - name: Run tests
-      env:
-        SKIP_TESTS: ${{ github.event_name == 'pull_request' && 'false' || 'true' }}
-        PYTHONPATH: ${{ github.workspace }}
-      run: |
-        make test
-
-    - name: Lint code
-      continue-on-error: true
-      run: |
-        make lint
-
-    - name: Format code
-      run: |
-        make format
-
-    - name: Test Flask application
-      env:
-        PYTHONPATH: ${{ github.workspace }}
-      run: |
-        python -m unittest discover -v tests
-
-  deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && success()
     
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
+    - uses: actions/checkout@v2
+    
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v2
       with:
-        python-version: '3.12'
-
+        python-version: '3.x'
+    
     - name: Install dependencies
       run: |
-        make install
-        make web-install
-
-    - name: Deploy to production
-      run: |
-        echo "Deploying application..."
-        # Add your deployment scripts here
-        # For example, you might use gunicorn to run your Flask app:
-        # gunicorn src.main:app
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Lint code
+      run: make lint
+    
+    - name: Format code
+      run: make format
+    
+    - name: Run tests
+      run: make test
