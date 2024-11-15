@@ -109,7 +109,6 @@ class QuantumFuseNode:
             new_block = self.blockchain.mine_block(self.public_key)
             if new_block:
                 self.broadcast_block(new_block)
-                self.visualizer.update_blockchain(self.blockchain)
                 print(f"New block created and broadcasted: {new_block}")
 
     def add_block(self, block_data: Dict[str, Any]):
