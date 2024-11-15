@@ -2,7 +2,7 @@
 PYTHON = python3
 PIP = pip3
 SRC_DIR = src
-TEST_DIR = tests
+TEST_DIR = src/tests
 FLASK_APP = src/quantumfuse/main.py
 
 # Default target
