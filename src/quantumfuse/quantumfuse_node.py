@@ -11,7 +11,6 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.backends import default_backend
 import requests
 from quantumfuse_blockchain import QuantumFuseBlockchain, Transaction, Block
-from quantumfuse_3d_model import QuantumFuse3DModel
 
 class QuantumFuseNode:
     def __init__(self, host: str, port: int, stake: float):
