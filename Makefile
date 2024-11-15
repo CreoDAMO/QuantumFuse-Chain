@@ -1,9 +1,10 @@
 # Variables
 PYTHON = python3
 PIP = pip3
-SRC_DIR = src
-TEST_DIR = src/tests
+SRC_DIR = src/quantumfuse
+TEST_DIR = tests
 FLASK_APP = src/quantumfuse/main.py
+PYTHONPATH := $(PYTHONPATH):$(shell pwd)/src
 
 # Default target
 all: install build
@@ -31,7 +32,7 @@ test:
 		echo "Skipping tests as requested"; \
 	else \
 		echo "Running tests..."; \
-		PYTHONPATH=$(SRC_DIR) $(PYTHON) -m unittest discover -v $(TEST_DIR) || \
+		PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m unittest discover -v $(TEST_DIR) || \
 		(echo "Tests failed, but continuing build..." && exit 0); \
 	fi
 
@@ -47,15 +48,24 @@ clean:
 
 # Lint the code
 lint:
-	flake8 $(SRC_DIR)
+	flake8 $(SRC_DIR) $(TEST_DIR)
 
 # Format the code
 format:
-	black $(SRC_DIR)
+	black $(SRC_DIR) $(TEST_DIR)
+
+# Run the application using gunicorn
+serve:
+	gunicorn --bind 0.0.0.0:8000 wsgi:app
+
+# Create a virtual environment
+venv:
+	$(PYTHON) -m venv venv
+	@echo "Virtual environment created. Activate it with 'source venv/bin/activate'"
 
 # Help
 help:
-	@echo "Makefile for Project Build"
+	@echo "Makefile for QuantumFuse Project"
 	@echo ""
 	@echo "Usage:"
 	@echo "  make install         Install dependencies"
@@ -67,6 +77,8 @@ help:
 	@echo "  make clean           Clean up temporary files"
 	@echo "  make lint            Lint the code"
 	@echo "  make format          Format the code"
+	@echo "  make serve           Run the application using gunicorn"
+	@echo "  make venv            Create a virtual environment"
 	@echo "  make help            Show this help message"
 
-.PHONY: all install web-install build run test build-skip-test clean lint format help
+.PHONY: all install web-install build run test build-skip-test clean lint format serve venv help
