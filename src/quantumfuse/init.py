@@ -1,6 +1,5 @@
 # Import main classes and functions to make them available when importing the package
 from .quantumfuse_blockchain import QuantumFuseBlockchain, Transaction
-from .quantumfuse_3d_model import QuantumFuse3DModel
 from .quantumfuse_node import QuantumFuseNode
 
 # You can also define __all__ to control what gets imported with "from quantumfuse import *"
