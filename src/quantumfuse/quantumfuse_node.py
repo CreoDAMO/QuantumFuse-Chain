@@ -22,7 +22,6 @@ class QuantumFuseNode:
         self.pending_transactions = []
         self.multi_sig_transactions = []
         self.identity_registry = {}  # Store decentralized identities (DIDs)
-        self.visualizer = QuantumFuse3DModel()
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(5)
