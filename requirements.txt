@@ -3,7 +3,7 @@ PyOpenGL==3.1.7
 numpy==2.1.1
 requests==2.32.2
 cryptography==43.0.3
-torch==2.5.1
+torch==2.7.0
 scikit-learn==1.5.2
 networkx==3.4.2
 matplotlib==3.9.2
